@@ -21,6 +21,7 @@ DROP TABLE IF EXISTS `Pictures`;
 CREATE TABLE `Pictures`(
     `id` int unsigned NOT NULL AUTO_INCREMENT,
     `url_id` int unsigned NOT NULL,
+    `size` int unsigned NOT NULL,
     `width` int unsigned NOT NULL,
     `height` int unsigned NOT NULL,
     `histogram` mediumtext NOT NULL,
