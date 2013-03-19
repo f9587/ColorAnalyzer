@@ -4,4 +4,23 @@
 
     {control webpageForm}
 </fieldset>
+
+<table>
+    <thead>
+        <tr>
+            <th>Čas vytvoření</th>
+            <th>Úkol</th>
+            <th>Přiřazeno</th>
+        </tr>
+    </thead>
+    <tbody>
+    {foreach $colors as $color}
+<tr>
+<td>{$color->red}</td>
+<td>{$color->green}</td>
+<td>{$color->blue}</td>
+</tr>
+{/foreach}
+</tbody>
+</table>
 {/block}

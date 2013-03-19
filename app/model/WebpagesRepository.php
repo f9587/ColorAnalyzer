@@ -20,6 +20,7 @@ class WebpagesRepository extends Repository
                 'code'=> $page
                 ));
         }
+        return 0;
     }
     
     public function findAllUrl() {

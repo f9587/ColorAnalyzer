@@ -7,19 +7,36 @@ use Nette\Utils\Validators;
  */
 class HomepagePresenter extends BasePresenter
 {
-    /**
-     * @var type PictureAnalyzer\WebpagesRepository
-     */
+    /**@var type PictureAnalyzer\WebpagesRepository*/
     private $webpagesRepository;
     
-    public function inject(PictureAnalyzer\WebpagesRepository $webpagesRepository)
+    /**@var type PictureAnalyzer\ColorsRepository*/
+    private $colorsRepository;
+    
+    public function inject(PictureAnalyzer\WebpagesRepository $webpagesRepository,
+            PictureAnalyzer\ColorsRepository $colorsRepository)
     {
         $this->webpagesRepository= $webpagesRepository;
+        $this->colorsRepository=$colorsRepository;
+    }
+                
+    public function renderDefault()
+    {
+        $this->template->colors = $this->colorsRepository->getTopColors();
+    }
+    
+    public function actionCron()
+    {
+        if (!$this->getContext()->params['consoleMode']) {
+            throw new AuthenticationException;
+        }
+        echo "pokus";
+
+        $this->terminate();
     }
 
     /**
-     * 
-     * @return n
+     * @return Nette\Application\UI\Form
      */
     protected function createComponentWebpageForm()
     {
@@ -42,18 +59,16 @@ class HomepagePresenter extends BasePresenter
         $values=$form->getValues();
         $page_header=@get_headers($values['url']);
         if (is_array($page_header) && preg_match("/200 OK$/",$page_header[0])){
-            $this->webpagesRepository->addWebpage($form->values->url);
-            $this->flashMessage('URL přidáno.', 'success');
-            $this->redirect('this');
+            if ($this->webpagesRepository->addWebpage($form->values->url)){
+                $this->flashMessage('URL přidáno.', 'success');
+                $this->redirect('this');
+            }else {
+                $form->addError('Tato stránka již byla vložena');
+            }
         }else{
-            $form->addError('Zadali jste nesprávné url.');
+            $form->addError('Tato stránka není dostupná');
         }
         
-    }
-
-    public function renderDefault()
-    {
-	$this->template->anyVariable = 'any value';
     }
 
 }

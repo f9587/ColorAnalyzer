@@ -1,12 +1,10 @@
 DROP TABLE IF EXISTS `Colors`;
 CREATE TABLE `Colors`(
     `id` int unsigned NOT NULL AUTO_INCREMENT,
-    `red` tinyint unsigned NOT NULL,
-    `green` tinyint unsigned NOT NULL,
-    `blue` tinyint unsigned NOT NULL,
+    `hex` varchar(6) NOT NULL,
     `count` int unsigned NOT NULL,
     PRIMARY KEY (`id`),
-    INDEX `rgb` (`red`,`green`,`blue`)
+    INDEX `rgb` (hex)
 )ENGINE='InnoDB' DEFAULT CHARSET=utf8;
 
 DROP TABLE IF EXISTS `Webpages`;
