@@ -28,8 +28,7 @@ common:
 			webpagesRepository: PictureAnalyzer\WebpagesRepository
 			colorsRepository: PictureAnalyzer\ColorsRepository
 			picturesRepository: PictureAnalyzer\PicturesRepository
-
-
+			picture_colorsRepository: PictureAnalyzer\Picture_ColorsRepository
 	factories:
 
 

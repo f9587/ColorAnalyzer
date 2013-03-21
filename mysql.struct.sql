@@ -2,7 +2,7 @@ DROP TABLE IF EXISTS `Colors`;
 CREATE TABLE `Colors`(
     `id` int unsigned NOT NULL AUTO_INCREMENT,
     `hex` varchar(6) NOT NULL,
-    `count` int unsigned NOT NULL,
+    `count` int unsigned NOT NULL DEFAULT '1',
     PRIMARY KEY (`id`),
     INDEX `rgb` (hex)
 )ENGINE='InnoDB' DEFAULT CHARSET=utf8;
@@ -11,7 +11,7 @@ DROP TABLE IF EXISTS `Webpages`;
 CREATE TABLE `Webpages`(
     `id` int unsigned NOT NULL AUTO_INCREMENT,
     `url` varchar(50) NOT NULL,
-    `code` mediumtext NOT NULL,
+    `code` mediumtext DEFAULT NULL,
     PRIMARY KEY (`id`)
 )ENGINE='InnoDB' DEFAULT CHARSET=utf8;
 
@@ -19,6 +19,7 @@ DROP TABLE IF EXISTS `Pictures`;
 CREATE TABLE `Pictures`(
     `id` int unsigned NOT NULL AUTO_INCREMENT,
     `url_id` int unsigned NOT NULL,
+    `adress` varchar(70) UNIQUE NOT NULL,
     `size` int unsigned NOT NULL,
     `width` int unsigned NOT NULL,
     `height` int unsigned NOT NULL,
@@ -28,7 +29,7 @@ CREATE TABLE `Pictures`(
     INDEX (`url_id`)
 )ENGINE='InnoDB' DEFAULT CHARSET=utf8;
 
-DROP TABLE IF EXISTS `Picture_Colors`;
+DROP TABLE IF EXISTS `PicturesColors`;
 CREATE TABLE `Picture_Colors`(
     `pic_id` int unsigned NOT NULL,
     `color_id` int unsigned NOT NULL,

@@ -13,28 +13,32 @@ class HomepagePresenter extends BasePresenter
     /**@var type PictureAnalyzer\ColorsRepository*/
     private $colorsRepository;
     
+     /**@var type PictureAnalyzer\PicturesRepository*/
+    private $picturesRepository;
+    
     public function inject(PictureAnalyzer\WebpagesRepository $webpagesRepository,
-            PictureAnalyzer\ColorsRepository $colorsRepository)
+                           PictureAnalyzer\ColorsRepository $colorsRepository,
+                           PictureAnalyzer\PicturesRepository $picturesRepository)
     {
         $this->webpagesRepository= $webpagesRepository;
         $this->colorsRepository=$colorsRepository;
+        $this->picturesRepository=$picturesRepository;
     }
                 
     public function renderDefault()
     {
         $this->template->colors = $this->colorsRepository->getTopColors();
     }
-    
+
     public function actionCron()
     {
         if (!$this->getContext()->params['consoleMode']) {
             throw new AuthenticationException;
         }
-        echo "pokus";
-
+        $this->picturesRepository->updateData();   
         $this->terminate();
     }
-
+    
     /**
      * @return Nette\Application\UI\Form
      */
